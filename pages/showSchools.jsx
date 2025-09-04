@@ -4,7 +4,7 @@ export default function ShowSchools() {
   const [schools, setSchools] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchSchools = async () => {
       try {
         const res = await fetch(
@@ -20,7 +20,27 @@ export default function ShowSchools() {
     };
 
     fetchSchools();
-  }, []);
+  }, []);*/ 
+  useEffect(() => {
+  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+  const fetchSchools = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/getSchools`
+      );
+      const data = await res.json();
+      console.log("Fetched schools:", data); // 👈 debug log
+      setSchools(data);
+    } catch (err) {
+      console.error("Error fetching schools:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchSchools();
+}, []);
+
 
   if (loading) {
     return (
