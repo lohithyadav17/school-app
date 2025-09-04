@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const res = await fetch("/api/get-schools"); // make sure API route name matches
+        const res = await fetch("/api/getSchools"); // make sure API route name matches
         const data = await res.json();
         const uniqueCities = [...new Set(data.map((s) => s.city))];
         setCities(uniqueCities);
