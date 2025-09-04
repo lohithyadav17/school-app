@@ -11,8 +11,10 @@ export default function ShowSchools() {
     const fetchSchools = async () => {
       try {
         let url = `${process.env.NEXT_PUBLIC_API_URL}/api/getSchools`;
-        if (city) {
-          url += `?city=${city}`;
+        
+        // only add filter if city is chosen
+        if (city && city.trim() !== "") {
+          url += `?city=${encodeURIComponent(city)}`;
         }
 
         const res = await fetch(url);
@@ -20,6 +22,7 @@ export default function ShowSchools() {
         setSchools(data);
       } catch (err) {
         console.error("Error fetching schools:", err);
+        setSchools([]);
       } finally {
         setLoading(false);
       }
