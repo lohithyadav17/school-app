@@ -7,7 +7,10 @@ export default function ShowSchools() {
   useEffect(() => {
     const fetchSchools = async () => {
       try {
-        const res = await fetch("/api/getSchools");
+        const base = process.env.NEXT_PUBLIC_API_URL ?? "";
+        const apiUrl = base ? `${base.replace(/\/$/, "")}/api/getSchools` : "/api/getSchools";
+
+        const res = await fetch(apiUrl);
         const data = await res.json();
         setSchools(data);
       } catch (err) {
@@ -39,24 +42,11 @@ export default function ShowSchools() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-700">
-        Schools List
-      </h1>
-
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-700">Schools List</h1>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {schools.map((school) => (
-          <div
-            key={school.id}
-            className="bg-white rounded-2xl shadow-lg p-4 flex flex-col hover:shadow-xl transition-shadow duration-200"
-          >
-            {/* Image */}
-            <img
-              src={school.image || "/school-placeholder.jpg"}
-              alt={school.name}
-              className="rounded-xl h-40 w-full object-cover mb-4"
-            />
-
-            {/* Info */}
+          <div key={school.id} className="bg-white rounded-2xl shadow-lg p-4 flex flex-col hover:shadow-xl transition-shadow duration-200">
+            <img src={school.image || "/school-placeholder.jpg"} alt={school.name} className="rounded-xl h-40 w-full object-cover mb-4" />
             <h2 className="text-lg font-bold text-gray-800">{school.name}</h2>
             <p className="text-gray-600 text-sm">{school.address}</p>
             <p className="text-gray-600 text-sm">{school.city}</p>
