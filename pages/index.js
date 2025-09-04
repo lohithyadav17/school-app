@@ -1,4 +1,6 @@
-import Link from "next/link"; 
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Home() {
   const [cities, setCities] = useState([]);
