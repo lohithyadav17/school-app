@@ -7,7 +7,7 @@ export default function ShowSchools() {
   useEffect(() => {
     const fetchSchools = async () => {
        try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getSchools`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-schools`);
       const data = await res.json();
       setSchools(data);
     } catch (err) {
