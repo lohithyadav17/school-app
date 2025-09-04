@@ -9,6 +9,8 @@ export default function ShowSchools() {
        try {
       //const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getSchools`);
       const res = await fetch("https://school-app-dev.up.railway.app/api/getSchools");
+         console.log("NEXT_PUBLIC_API_URL from frontend:", process.env.NEXT_PUBLIC_API_URL);
+
       const data = await res.json();
       setSchools(data);
     } catch (err) {
