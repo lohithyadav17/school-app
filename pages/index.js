@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import Link from "next/link"; 
 
 export default function Home() {
   const [cities, setCities] = useState([]);
@@ -8,7 +7,7 @@ export default function Home() {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const res = await fetch("/api/getSchools");
+        const res = await fetch("/api/get-schools"); // make sure API route name matches
         const data = await res.json();
         const uniqueCities = [...new Set(data.map((s) => s.city))];
         setCities(uniqueCities);
@@ -40,7 +39,6 @@ export default function Home() {
 
       {/* Filter Section */}
       <div className="flex flex-col md:flex-row gap-4 mt-6">
-        {/* Choose City */}
         <select
           className="px-4 py-3 rounded-lg text-gray-800"
           onChange={(e) => {
@@ -56,6 +54,13 @@ export default function Home() {
             </option>
           ))}
         </select>
+
+        {/* Add School Button */}
+        <Link href="/addSchool">
+          <button className="bg-blue-500 px-6 py-2 rounded-lg text-white hover:bg-blue-600">
+            Add School
+          </button>
+        </Link>
       </div>
     </div>
   );
