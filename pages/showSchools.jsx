@@ -6,19 +6,16 @@ export default function ShowSchools() {
 
   useEffect(() => {
     const fetchSchools = async () => {
-      try {
-        const base = process.env.NEXT_PUBLIC_API_URL ?? "";
-        const apiUrl = base ? `${base.replace(/\/$/, "")}/api/getSchools` : "/api/getSchools";
-
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        setSchools(data);
-      } catch (err) {
-        console.error("Error fetching schools:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+       try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getSchools`);
+      const data = await res.json();
+      setSchools(data);
+    } catch (err) {
+      console.error("Error fetching schools:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
     fetchSchools();
   }, []);
